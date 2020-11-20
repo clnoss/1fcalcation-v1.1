@@ -1,0 +1,290 @@
+<html>
+
+<head>
+  <meta charset="shift_jis">
+  <title>1f城破壊計算機</title>
+</head>
+
+<body>
+  <h1>1f計算機</h1>
+  <div>※値入力の際には、DBにて表示されている数値を記入してください。</div>
+  <div>※この計算機は4体まで対応しています。<div>
+  <div>※お金レベルコンボ,移動速度アップコンボなどには対応しておりません。<div>
+  <a href="https://battlecats-db.com/" target="_blank">データベース</a>
+  <a href="https://twitter.com/culonoss_God" target="_blank">製作者のtwitter</a><hr/>
+
+  <form name="1kyaraform">
+    <label for="kyaraname1"> キャラ名:</label>
+    <input type="text" size="7" id="kyaraname1"><br/>
+    <label for="rangeform1"> 射程:</label>
+    <input type="text" size="4" id="rangeform1">
+    <label for="speedform1"> 移動速度:</label>
+    <input type="text" size="4" id="speedform1">
+    <label for="saveform1"> 攻撃発生:</label>
+    <input type="text" size="4" id="saveform1">
+    <label for="costform1"> コスト:</label>
+    <input type="text" size="5" id="costform1">
+  </form>
+
+  <form name="2kyaraform">
+    <label for="kyaraname2"> キャラ名:</label>
+    <input type="text" size="7" id="kyaraname2"><br/>
+    <label for="rangeform2"> 射程:</label>
+    <input type="text" size="4" id="rangeform2">
+    <label for="speedform2"> 移動速度:</label>
+    <input type="text" size="4" id="speedform2">
+    <label for="saveform2"> 攻撃発生:</label>
+    <input type="text" size="4" id="saveform2">
+    <label for="costform2"> コスト:</label>
+    <input type="text" size="5" id="costform2">
+  </form>
+
+  <form name="2kyaraform">
+    <label for="kyaraname3"> キャラ名:</label>
+    <input type="text" size="7" id="kyaraname3"><br/>
+    <label for="rangeform3"> 射程:</label>
+    <input type="text" size="4" id="rangeform3">
+    <label for="speedform3"> 移動速度:</label>
+    <input type="text" size="4" id="speedform3">
+    <label for="saveform3"> 攻撃発生:</label>
+    <input type="text" size="4" id="saveform3">
+    <label for="costform3"> コスト:</label>
+    <input type="text" size="5" id="costform3"><hr/>
+  </form>
+
+  <div>その他の情報<div/>
+  <form name="info">
+    <label for="stagerange"> 城距離:</label>
+    <input type="text" size="5" id="stagerange">
+    <label for="howmuch"> 何体か:</label>
+    <input type="text" size="4" id="howmuch">
+    <label for="moneylebel"> お金レベル:</label>
+    <input type="text" size="4" id="moneylebel"><hr/>
+  <form/>
+
+  <div>タイミング指定<div/>
+  <form name="taiming">
+    <label for="nanntaime"> 何体目を:</label>
+    <input type="text" size="4" id="nanntaime">
+    <label for="nannenn"> 何円に出すか:</label>
+    <input type="text" size="5" id="nannenn"><hr/>
+  <form/>
+
+  <form name="hanntei">
+    <button id="button">計算</button>
+  <form/>
+
+  <hr/>
+
+  <div>==計算結果==<div/>
+
+  <div>出撃金額<div/>
+  <form>
+    <input type="text" size="7" id="kyaramei1">
+    <label for="syutugeki1"> :</label>
+    <input type="text" size="15" id="syutugeki1"></br>
+    <input type="text" size="7" id="kyaramei2">
+    <label for="syutugeki2"> :</label>
+    <input type="text" size="15" id="syutugeki2"></br>
+    <input type="text" size="7" id="kyaramei3">
+    <label for="syutugeki3"> :</label>
+    <input type="text" size="15" id="syutugeki3">
+  <form/>
+
+</body>
+
+<script>
+
+  //ボタンの要素を取得
+  var button = document.getElementById("button");
+
+    //ボタンをクリックした時の処理
+    button.addEventListener("click", function(e){
+
+    e.preventDefault();
+
+    //入力フォームの値を取得
+    var rangeform1 = document.getElementById("rangeform1").value;
+    var speedform1 = document.getElementById("speedform1").value;
+    var saveform1 = document.getElementById("saveform1").value;
+    var costform1 = document.getElementById("costform1").value;
+    var rangeform2 = document.getElementById("rangeform2").value;
+    var speedform2 = document.getElementById("speedform2").value;
+    var saveform2 = document.getElementById("saveform2").value;
+    var costform2 = document.getElementById("costform2").value;
+    var rangeform3 = document.getElementById("rangeform3").value;
+    var speedform3 = document.getElementById("speedform3").value;
+    var saveform3 = document.getElementById("saveform3").value;
+    var costform3 = document.getElementById("costform3").value;
+    var stagerange = document.getElementById("stagerange").value;
+    var moneylebel = document.getElementById("moneylebel").value;
+    var howmuch = document.getElementById("howmuch").value;
+    var nanntaime = document.getElementById("nanntaime").value;
+    var nannenn = document.getElementById("nannenn").value;
+    var kyaraname1 = document.getElementById("kyaraname1").value;
+    var kyaraname2 = document.getElementById("kyaraname2").value;
+    var kyaraname3 = document.getElementById("kyaraname3").value;
+
+
+    //それぞれのキャラ
+    var ittaime = (((parseInt(stagerange,10)-1500)-parseInt(rangeform1,10))/(parseInt(speedform1,10)/2))+parseInt(saveform1,10)
+    var nitaime = (((parseInt(stagerange,10)-1500)-parseInt(rangeform2,10))/(parseInt(speedform2,10)/2))+parseInt(saveform2,10)
+    var santaime = (((parseInt(stagerange,10)-1500)-parseInt(rangeform3,10))/(parseInt(speedform3,10)/2))+parseInt(saveform3,10)
+
+    //並び変える
+    if(howmuch==2){
+      if(ittaime>nitaime){
+        itibannme=ittaime
+        itibannmecost=costform1
+        kyara1result=kyaraname1
+        nibannme=nitaime
+        nibannmecost=costform2
+        kyara2result=kyaraname2
+      }else if (ittaime<nitaime){
+        itibannme=nitaime
+        itibannmecost=costform2
+        kyara1result=kyaraname2
+        nibannme=ittaime
+        nibannmecost=costform1
+        kyara2result=kyaraname1
+      }
+    }else if (howmuch==3){
+      if(ittaime>nitaime&&nitaime>santaime){
+        itibannme=ittaime
+        itibannmecost=parseInt(costform1,10)
+        kyara1result=kyaraname1
+        nibannme=nitaime
+        nibannmecost=parseInt(costform2,10)
+        kyara2result=kyaraname2
+        sannbannme=santaime
+        sannbannmecost=parseInt(costform3,10)
+        kyara3result=kyaraname3
+      }else if (ittaime>santaime&&santaime>nitaime){
+        itibannme=ittaime
+        itibannmecost=parseInt(costform1,10)
+        kyara1result=kyaraname1
+        nibannme=santaime
+        nibannmecost=parseInt(costform3,10)
+        kyara2result=kyaraname3
+        sannbannme=nitaime
+        sannbannmecost=parseInt(costform2,10)
+        kyara3result=kyaraname2
+      }else if (nitaime>ittaime&&ittaime>santaime){
+        itibannme=nitaime
+        itibannmecost=parseInt(costform2,10)
+        kyara1result=kyaraname2
+        nibannme=ittaime
+        nibannmecost=parseInt(costform1,10)
+        kyara2result=kyaraname1
+        sannbannme=santaime
+        sannbannmecost=parseInt(costform3,10)
+        kyara3result=kyaraname3
+      }else if (nitaime>santaime&&santaime>ittaime){
+        itibannme=nitaime
+        itibannmecost=parseInt(costform2,10)
+        kyara1result=kyaraname2
+        nibannme=santaime
+        nibannmecost=parseInt(costform3,10)
+        kyara2result=kyaraname3
+        sannbannme=ittaime
+        sannbannmecost=parseInt(costform1,10)
+        kyara3result=kyaraname1
+      }else if (santaime>ittaime&&ittaime>nitaime){
+        itibannme=santaime
+        itibannmecost=parseInt(costform3,10)
+        kyara1result=kyaraname3
+        nibannme=ittaime
+        nibannmecost=parseInt(costform1,10)
+        kyara2result=kyaraname1
+        sannbannme=nitaime
+        sannbannmecost=parseInt(costform2,10)
+        kyara3result=kyaraname2
+      }else if (santaime>nitaime&&nitaime>ittaime){
+        itibannme=santaime
+        itibannmecost=parseInt(costform3,10)
+        kyara1result=kyaraname3
+        nibannme=nitaime
+        nibannmecost=parseInt(costform2,10)
+        kyara2result=kyaraname2
+        sannbannme=ittaime
+        sannbannmecost=parseInt(costform1,10)
+        kyara3result=kyaraname1
+      }
+    }
+
+    //お金レベル
+    if(parseInt(moneylebel,10)==1){
+      var hueruokane = 6.15
+      var maxmoney = 6000
+    }else if (parseInt(moneylebel,10)==2){
+      var hueruokane = 6.46
+      var maxmoney = 7500
+    }else if (parseInt(moneylebel,10)==3){
+      var hueruokane = 6.78
+      var maxmoney = 9000
+    }else if (parseInt(moneylebel,10)==4){
+      var hueruokane = 7.09
+      var maxmoney = 10500
+    }else if (parseInt(moneylebel,10)==5){
+      var hueruokane = 7.41
+      var maxmoney = 12000
+    }else if (parseInt(moneylebel,10)==6){
+      var hueruokane = 7.72
+      var maxmoney = 13500
+    }else if (parseInt(moneylebel,10)==7){
+      var hueruokane = 8.04
+      var maxmoney = 15000
+    }else if (parseInt(moneylebel,10)==8){
+      var hueruokane = 8.35
+      var maxmoney = 16500
+    }
+
+    //2体
+    if(howmuch==2){
+      if(nanntaime==1){
+        var itibannmeresult = parseInt(nannenn,10)
+        var nibannmeresult = (parseInt(nannenn,10)-parseInt(itibannmecost,10))+(Math.round((-(parseInt(nibannme,10)-parseInt(itibannme,10))*hueruokane)*100)/100)
+      }else if (nanntaime==2){
+        var nibannmeresult = parseInt(nannenn,10)
+        var itibannmeresult = parseInt(nannenn,10)-(Math.round((-(parseInt(itibannme,10)-parseInt(nibannme,10))*hueruokane)*100)/100)+parseInt(itibannmecost,10)
+      }
+    }else if (howmuch==3){
+      if(nanntaime==1){
+        var itibannmeresult = parseInt(nannenn,10)
+        var nibannmeresult = (parseInt(nannenn,10)-parseInt(itibannmecost,10))+(Math.round((-(parseInt(nibannme,10)-parseInt(itibannme,10))*hueruokane)*100)/100)
+        var sannbannmeresult = (nibannmeresult-parseInt(nibannmecost,10))+(Math.round((-(parseInt(sannbannme,10)-parseInt(nibannme,10))*hueruokane)*100)/100)
+      }else if (nanntaime==2){
+        var nibannmeresult = parseInt(nannenn,10)
+        var itibannmeresult = parseInt(nannenn,10)-(Math.round((-(parseInt(nibannme,10)-parseInt(itibannme,10))*hueruokane)*100)/100)+parseInt(itibannmecost,10)
+        var sannbannmeresult = (parseInt(nannenn,10)-parseInt(nibannmecost,10))+(Math.round((-(parseInt(sannbannme,10)-parseInt(nibannme,10))*hueruokane)*100)/100)
+      }else if (nanntaime==3){
+        var sannbannmeresult = parseInt(nannenn,10)
+        var nibannmeresult = parseInt(nannenn,10)-(Math.round((-(parseInt(sannbannme,10)-parseInt(nibannme,10))*hueruokane)*100)/100)+parseInt(nibannmecost,10)
+        var itibannmeresult = (nibannmeresult-(Math.round((-(parseInt(nibannme,10)-parseInt(itibannme,10))*hueruokane)*100)/100))+parseInt(itibannmecost,10)
+      }
+    }
+
+    //計算の結果を入力フォームに表示
+    var syutugeki1 = document.getElementById("syutugeki1");
+    syutugeki1.value = itibannmeresult;
+
+    var syutugeki2 = document.getElementById("syutugeki2");
+    syutugeki2.value = nibannmeresult;
+
+    var syutugeki3 = document.getElementById("syutugeki3");
+    syutugeki3.value = sannbannmeresult;
+
+    var kyaramei1 = document.getElementById("kyaramei1");
+    kyaramei1.value = kyara1result;
+
+    var kyaramei2 = document.getElementById("kyaramei2");
+    kyaramei2.value = kyara2result;
+
+    var kyaramei3 = document.getElementById("kyaramei3");
+    kyaramei3.value = kyara3result;
+
+});
+
+</script>
+
+</html>
